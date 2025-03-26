@@ -1,0 +1,1 @@
+Falta corregir la ruta de excursiones_guias hacer un INNER JOIN al igual que transportes_reserva

@@ -1,5 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const path = require("path");
+const swaggerDocs = require("./config/swagger");
 
 dotenv.config();
 const app = express();
@@ -8,7 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rutas
+
+// Rutas de la API
 const reservasRoute = require("./routes/reservas");
 const transportesRoute = require("./routes/transportes");
 const pagosRoute = require("./routes/pagos");
@@ -22,7 +25,6 @@ const excursionesRoute = require("./routes/excursiones");
 const loginRoute = require("./routes/login");
 const accesoRoute = require("./routes/acceso");
 
-// Rutas de la API
 app.use("/api/login", loginRoute);
 app.use("/api/reservas", reservasRoute);
 app.use("/api/transportes", transportesRoute);
@@ -36,8 +38,13 @@ app.use("/api/excursiones_guias", excursiones_guiasRoute);
 app.use("/api/excursiones", excursionesRoute);
 app.use("/api/acceso", accesoRoute);
 
+
+// Documentación Swagger
+swaggerDocs(app);
+
 // Iniciar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
+  console.log(`Documentación en http://localhost:${PORT}/api-docs`);
 });
